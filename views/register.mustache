@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{{>_head}}
+  <body>
+    <header>
+      <nav>
+        <ul class="nav nav-pills">
+          <li  class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li  class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+          <li  class="nav-item"><a class="nav-link active" href="/register">Register</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>You made it to Sign-up!</h1>
+      <form class="" action="/registered" method="post">
+        <input type="text" name="username" value="" placeholder="Username">
+        <input type="text" name="password" value="" placeholder="Password">
+        <input type="text" name="password-match" value="" placeholder="Re-enter Password">
+        <button class="btn btn-secondary" type="submit" name="button">Login</button>
+      </form>
+    </main>
+
+  </body>
+</html>
