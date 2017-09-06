@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 {{>_head}}
-  <body>
+  <body class="link2">
     <header>
       <nav>
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/login">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+        <ul class="">
+          <a class="" href="/"><li class="link1">Home</li></a>
+          <a class="" href="/login"><li class="link2">Login</li></a>
+          <a class="" href="/register"><li class="link3">Register</li></a>
         </ul>
       </nav>
     </header>
     <main>
       <h1>You made it to Login!</h1>
-      <form class="" action="/loggedIn" method="post">
+      <form class="" action="/login" method="post">
         <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
         <button class="btn btn-secondary" type="submit" name="button">Login</button>
