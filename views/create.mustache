@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{>_head}}
-  <body class="link1">
+  <body class="link3">
     <header>
       <nav>
         <ul class="">
@@ -16,7 +16,20 @@
       </nav>
     </header>
     <main>
-      <h1>Choose a language!</h1>
+      <h1>You made it to Sign-up!</h1>
+      <form class="" action="/create" method="post">
+        <input type="text" name="title" value="" placeholder="Username">
+        <textarea name="description" rows="4" cols="80"></textarea>
+        <textarea name="snippet" rows="8" cols="80"></textarea>
+        <select class="" name="tags">
+          <option value="HTML">HTML</option>
+          <option value="CSS">CSS</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Nodejs">Nodejs</option>
+        </select>
+        <button class="btn btn-secondary" type="submit" name="button">Login</button>
+      </form>
     </main>
+
   </body>
 </html>

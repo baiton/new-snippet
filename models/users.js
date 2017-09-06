@@ -20,7 +20,7 @@ ProfileSchema.pre('save', function(next){
   })
 })
 
-ProfileSchema.method.comparePassword = (password, dbPass, done)=>{
+ProfileSchema.methods.comparePassword = (password, dbPass, done)=>{
   bcrypt.compare(password, dbPass, (err, isMatch) => {
     done(err, isMatch)
   })
@@ -34,6 +34,4 @@ ProfileSchema.method.comparePassword = (password, dbPass, done)=>{
 const Profile = mongoose.model('Profile', ProfileSchema) //I will make your collection but plural!
 
 
-module.exports= {
-  Profile: Profile
-}
+module.exports= Profile

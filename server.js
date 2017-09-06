@@ -5,7 +5,7 @@ const app = express();
 // const session = require('express-session')
 const expressJWT= require('express-jwt')
 const jwt = require('jsonwebtoken')
-const {Profile} =require ('./models/users')
+const Profile =require ('./models/users')
 console.log('Profile', Profile);
 const { createToken } = require('./controllers/authHelpers')
 const {
@@ -47,6 +47,7 @@ app.post('/login', (req, res) =>{
     if (!user){
       return res.status(401).send({message: 'Wrong username and/or password'})
     }
+    console.log("user", user);
     user.comparePassword(req.body.password, user.password, function(
       err,
       isMatch
@@ -78,6 +79,10 @@ app.get('/snippets', (req, res) =>{
 
   //contains a navigation directory with indications on where to go
   res.render('./snippets')
+})
+
+app.get('/create', (req, res) =>{
+  res.render('./create')
 })
 
 app.get('/profiles', (req, res) =>{

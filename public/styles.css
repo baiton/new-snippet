@@ -54,3 +54,27 @@ background-color: #8DEA69;
 .link6{
   background-color: #E863BA;
 }
+
+.link7{
+  background-color: #E86567;
+}
+
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input{
+  margin: 10px;
+}
+
+textarea{
+margin: 10px;
+}
+
+select{
+  background-color: lightgray;
+}
