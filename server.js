@@ -6,8 +6,9 @@ const app = express();
 const expressJWT= require('express-jwt')
 const jwt = require('jsonwebtoken')
 const Profile =require ('./models/users')
+const roles = require ('./controllers/roles.js')
 console.log('Profile', Profile);
-const { createToken } = require('./controllers/authHelpers')
+const { createToken, ensureAuthenticated } = require('./controllers/authHelpers')
 const {
   getAllUsers: getAllUsers,
   newAccount: newAccount
@@ -37,29 +38,44 @@ app.get('/login', (req, res) =>{
   res.render('./login')
 })
 
-app.post('/login', (req, res) =>{
-  Profile.findOne({username: req.body.username}, '+password', function(
-    err,
-    user,
-    next
-  ){
-    if (err) return next(err)
-    if (!user){
-      return res.status(401).send({message: 'Wrong username and/or password'})
+app.post('/login', roles.can('access member resources', (req, res) =>{
+  User.findOne({username: req.body.username}, (err, existingUser) =>{
+    if(existingUser){
+      return res.status(409).send({message: "Username is already taken."})
     }
-    console.log("user", user);
-    user.comparePassword(req.body.password, user.password, function(
-      err,
-      isMatch
-    ){
-      console.log('is match', isMatch);
-      if (!isMatch){
-        return res.status(401).send({message: 'Wrong username and/or password'})
-      }
-      res.redirect('/snippets')
+    const user = new User({
+      name: req.body.username,
+      password: req.body.password,
+      roles: req.body.roles
+    })
+    user.save(() =>{
+      res.send({token: createToken(user), message: "User has been created"})
     })
   })
-})
+}))
+//  (req, res) =>{
+//   Profile.findOne({username: req.body.username}, '+password', function(
+//     err,
+//     user,
+//     next
+//   ){
+//     if (err) return next(err)
+//     if (!user){
+//       return res.status(401).send({message: 'Wrong username and/or password'})
+//     }
+//     console.log("user", user);
+//     user.comparePassword(req.body.password, user.password, function(
+//       err,
+//       isMatch
+//     ){
+//       console.log('is match', isMatch);
+//       if (!isMatch){
+//         return res.status(401).send({message: 'Wrong username and/or password'})
+//       }
+//       res.redirect('/snippets')
+//     })
+//   })
+// })
 
 // --------------Register------------------
 app.get('/register', (req, res) =>{
@@ -75,33 +91,33 @@ app.post('/registered', (req, res) =>{
 })
 
 //---------------main-----------------------
-app.get('/snippets', (req, res) =>{
+app.get('/snippets', ensureAuthenticated, (req, res) =>{
 
   //contains a navigation directory with indications on where to go
   res.render('./snippets')
 })
 
-app.get('/create', (req, res) =>{
+app.get('/create', ensureAuthenticated, (req, res) =>{
   res.render('./create')
 })
 
-app.get('/profiles', (req, res) =>{
+app.get('/profiles', ensureAuthenticated, (req, res) =>{
   res.render('./directory')
 })
 
-app.get('/css', (req, res) =>{
+app.get('/css', ensureAuthenticated, (req, res) =>{
   res.render('./css')
 })
 
-app.get('/javascript', (req, res) =>{
+app.get('/javascript', ensureAuthenticated, (req, res) =>{
   res.render('./javascript')
 })
 
-app.get('/html', (req, res) =>{
+app.get('/html', ensureAuthenticated, (req, res) =>{
   res.render('./html')
 })
 
-app.get('/nodejs', (req, res) =>{
+app.get('/nodejs', ensureAuthenticated, (req, res) =>{
   res.render('./nodejs')
 })
 
