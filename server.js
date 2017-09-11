@@ -53,29 +53,6 @@ app.post('/login', roles.can('access member resources', (req, res) =>{
     })
   })
 }))
-//  (req, res) =>{
-//   Profile.findOne({username: req.body.username}, '+password', function(
-//     err,
-//     user,
-//     next
-//   ){
-//     if (err) return next(err)
-//     if (!user){
-//       return res.status(401).send({message: 'Wrong username and/or password'})
-//     }
-//     console.log("user", user);
-//     user.comparePassword(req.body.password, user.password, function(
-//       err,
-//       isMatch
-//     ){
-//       console.log('is match', isMatch);
-//       if (!isMatch){
-//         return res.status(401).send({message: 'Wrong username and/or password'})
-//       }
-//       res.redirect('/snippets')
-//     })
-//   })
-// })
 
 // --------------Register------------------
 app.get('/register', (req, res) =>{
@@ -90,6 +67,15 @@ app.post('/registered', (req, res) =>{
   })
 })
 
+// PICK UP HERE WHEN YOU RETURN!!!!!!!
+app.get('/logout', (req, res)=>{
+  // ========================================
+  // make a function that will log out the user????????????
+  // ========================================
+
+  res.redirect("/login")
+})
+
 //---------------main-----------------------
 app.get('/snippets', ensureAuthenticated, (req, res) =>{
 
@@ -97,7 +83,7 @@ app.get('/snippets', ensureAuthenticated, (req, res) =>{
   res.render('./snippets')
 })
 
-app.get('/create', ensureAuthenticated, (req, res) =>{
+app.get('/create', (req, res) =>{
   res.render('./create')
 })
 
