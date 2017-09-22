@@ -11,7 +11,7 @@ const user = new ConnectRoles({
 })
 
 user.use('access member resources', function(req, res){
-  const person = req.user
+  const user = req.user
   if (checkRole('member', user) || checkRole('admin', user)){
     return true
   }
