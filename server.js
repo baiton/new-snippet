@@ -105,7 +105,7 @@ app.get('/logout', (req, res) => {
 })
 
 //---------------main-----------------------
-app.get('/snippets', ensureAuthenticated, (req, res) => {
+app.get('/snippets', (req, res) => {
   //function goes here
   //contains a navigation directory with indications on where to go
   res.render('./snippets')
